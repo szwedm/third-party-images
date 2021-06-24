@@ -2,7 +2,7 @@ ARG GRAFANA_VERSION
 
 FROM grafana/grafana:${GRAFANA_VERSION} as builder
 
-FROM alpine:3.13.5
+FROM alpine:3.14.0
 
 ARG GF_UID="472"
 ARG GF_GID="0"
