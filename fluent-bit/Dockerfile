@@ -78,7 +78,7 @@ RUN cp conf/fluent-bit.conf \
 
 FROM golang:1.15 as lokibuilder
 
-ENV LOKI_VERSION 2.1.0 
+ENV LOKI_VERSION 2.2.1 
 
 RUN mkdir -p /tmp/src /loki
 RUN curl -L https://github.com/grafana/loki/archive/v${LOKI_VERSION}.tar.gz | \
