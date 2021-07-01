@@ -2,7 +2,7 @@ ARG KIWIGRID_SIDECAR_VERSION
 
 FROM kiwigrid/k8s-sidecar:${KIWIGRID_SIDECAR_VERSION} as builder
 
-FROM python:3.9.5-alpine3.13
+FROM python:3.9.6-alpine3.14
 
 ARG KIWIGRID_SIDECAR_VERSION
 
