@@ -28,6 +28,11 @@ ci-tag:
 .PHONY: ci-pr
 ci-pr: docker-build ci-tag docker-push docker-push-pr
 
+# Cosign signing
+.PHONY: cosign-pr
+cosign-pr: ci-pr
+	cosign sign -key ${KMS_KEY_URL} ${IMG_DOCKER_TAG}
+
 .PHONY: ci-main
 ci-main: docker-build docker-push
 
