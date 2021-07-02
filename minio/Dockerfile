@@ -1,4 +1,4 @@
-FROM minio/minio:RELEASE.2020-09-21T22-31-59Z as builder
+FROM minio/minio:RELEASE.2021-06-17T00-10-46Z as builder
 
 FROM alpine:3.13.5
 
@@ -16,8 +16,7 @@ COPY --from=builder /usr/bin/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
 RUN  \
     apk update && apk upgrade && \
-    apk add --no-cache ca-certificates 'su-exec>=0.2' && \
-    apk add --no-cache curl>=7.76.0-r0 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main && \
+    apk add --no-cache ca-certificates curl 'su-exec>=0.2' && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
 
 ENTRYPOINT ["/usr/bin/docker-entrypoint.sh"]
