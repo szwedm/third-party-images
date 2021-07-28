@@ -38,4 +38,4 @@ ci-release: docker-build docker-push cosign
 # Cosign signing
 .PHONY: cosign
 cosign:
-	cosign sign -key ${KMS_KEY_URL} ${IMG_DOCKER_TAG}
+	cosign sign -key ${KMS_KEY_URL} ${IMG}
