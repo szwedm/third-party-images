@@ -1,4 +1,4 @@
-FROM alpine:3.13.5
+FROM alpine:3.14.1
 
 # Commit details
 
@@ -8,7 +8,7 @@ LABEL io.kyma-project.third-party-images.commit=$commit
 
 LABEL source=git@github.com:kyma-project/third-party-images.git
 
-ENV KUBECTL_VERSION="v1.19.7"
+ENV KUBECTL_VERSION="v1.19.14"
 
 RUN apk --no-cache upgrade &&\
     apk --no-cache add openssl coreutils curl bash jq grep inotify-tools &&\
