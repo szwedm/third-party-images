@@ -1,54 +1,50 @@
 FROM debian:testing-20210816-slim as builder
 
-ENV FLB_VERSION 1.5.7
+# Fluent Bit version
+ENV FLB_VERSION 1.8.4
+
+ARG FLB_TARBALL=https://github.com/fluent/fluent-bit/archive/v$FLB_VERSION.tar.gz
+ENV FLB_SOURCE $FLB_TARBALL
+RUN mkdir -p /fluent-bit/bin /fluent-bit/etc /fluent-bit/log /tmp/fluent-bit-master/
+
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
     apt-get -y dist-upgrade && \
     apt-get install -y --no-install-recommends \
     build-essential \
+    curl \
+    ca-certificates \
     cmake \
     make \
-    curl \
-    unzip \
+    tar \
     libssl-dev \
-    libasl-dev \
     libsasl2-dev \
     pkg-config \
     libjemalloc-dev \
     libsystemd-dev \
     zlib1g-dev \
-    ca-certificates \
+    libpq-dev \
+    postgresql-server-dev-all \
     flex \
     bison \
-    file
+    && curl -L -o "/tmp/fluent-bit.tar.gz" ${FLB_SOURCE} \
+    && cd tmp/ && mkdir fluent-bit \
+    && tar zxfv fluent-bit.tar.gz -C ./fluent-bit --strip-components=1 \
+    && cd fluent-bit/build/ \
+    && rm -rf /tmp/fluent-bit/build/*
 
-RUN mkdir -p /fluent-bit/bin /fluent-bit/etc /fluent-bit/log /tmp/src/
-RUN curl -sSL https://github.com/fluent/fluent-bit/archive/v${FLB_VERSION}.tar.gz | \
-    tar zx --strip=1 -C /tmp/src/
-
-# Non blocking writes patch	
-COPY patch/non-blocking-write/* /patch/	
-RUN mv /patch/flb_output.h /tmp/src/include/fluent-bit/	
-RUN mv /patch/flb_pipe.h /tmp/src/include/fluent-bit/	
-RUN mv /patch/flb_engine.c /tmp/src/src/	
-RUN mv /patch/flb_pipe.c /tmp/src/src/	
-# End non blocking writes patch	
-
-
-RUN rm -rf /tmp/src/build/*
-
-WORKDIR /tmp/src/build/
-RUN cmake -DFLB_DEBUG=Off \
-    -DFLB_TRACE=Off \
-    -DFLB_JEMALLOC=On \
-    -DFLB_BUFFERING=On \
-    -DFLB_TLS=On \
-    -DFLB_SHARED_LIB=Off \
-    -DFLB_EXAMPLES=Off \
-    -DFLB_HTTP_SERVER=On \
-    -DFLB_IN_SYSTEMD=On \
-    -DFLB_OUT_KAFKA=On ..
+WORKDIR /tmp/fluent-bit/build/
+RUN cmake -DFLB_RELEASE=On \
+          -DFLB_TRACE=Off \
+          -DFLB_JEMALLOC=On \
+          -DFLB_TLS=On \
+          -DFLB_SHARED_LIB=Off \
+          -DFLB_EXAMPLES=Off \
+          -DFLB_HTTP_SERVER=On \
+          -DFLB_IN_SYSTEMD=On \
+          -DFLB_OUT_KAFKA=On \
+          -DFLB_OUT_PGSQL=On ..
 
 RUN make -j $(getconf _NPROCESSORS_ONLN)
 RUN install bin/fluent-bit /fluent-bit/bin/
@@ -58,21 +54,23 @@ RUN rm -rf /plugins
 COPY plugins /plugins
 RUN mkdir -p /plugins/build/
 WORKDIR /plugins/build/
-RUN cmake -DFLB_SOURCE=/tmp/src -DPLUGIN_NAME=out_sequentialhttp  ../
+RUN cmake -DFLB_SOURCE=/tmp/fluent-bit \
+          -DPLUGIN_NAME=out_sequentialhttp  ../
 RUN make -j $(getconf _NPROCESSORS_ONLN)
 # End sequentialhttp
 
 # Configuration files
-WORKDIR /tmp/src/
+WORKDIR /tmp/fluent-bit/
 RUN mkdir /fluent-bit/lib
 RUN cp conf/fluent-bit.conf \
-    conf/parsers.conf \
-    conf/parsers_java.conf \
-    conf/parsers_extra.conf \
-    conf/parsers_openstack.conf \
-    conf/parsers_cinder.conf \
-    conf/plugins.conf \
-    /fluent-bit/etc/
+     conf/parsers.conf \
+     conf/parsers_ambassador.conf \
+     conf/parsers_java.conf \
+     conf/parsers_extra.conf \
+     conf/parsers_openstack.conf \
+     conf/parsers_cinder.conf \
+     conf/plugins.conf \
+     /fluent-bit/etc/
 
 FROM golang:1.15 as lokibuilder
 
@@ -97,10 +95,10 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists
 
 COPY --from=builder /fluent-bit /fluent-bit
-COPY --from=builder /plugins /plugins
+COPY --from=builder /plugins/build/flb-out_sequentialhttp.so /fluent-bit/lib
 COPY --from=lokibuilder /loki/out_grafana_loki.so /fluent-bit/lib
 
 EXPOSE 2020
 
 LABEL source=git@github.com:kyma-project/kyma.git
-CMD ["/fluent-bit/bin/fluent-bit", "-e", "/plugins/build/flb-out_sequentialhttp.so", "-e", "/fluent-bit/lib/out_grafana_loki.so", "-c", "/fluent-bit/etc/fluent-bit.conf"]
+CMD ["/fluent-bit/bin/fluent-bit", "-e", "/fluent-bit/lib/flb-out_sequentialhttp.so", "-e", "/fluent-bit/lib/out_grafana_loki.so", "-c", "/fluent-bit/etc/fluent-bit.conf"]

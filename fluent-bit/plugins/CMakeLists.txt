@@ -1,11 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
 project(plugin)
-# FLB_PLUGIN: used by plugins to perform registration and linking
-#macro(FLB_PLUGIN name src deps)
-#  add_library(flb-plugin-${name} STATIC ${src})
-#  add_sanitizers(flb-plugin-${name})
-#  target_link_libraries(flb-plugin-${name} fluent-bit-static msgpackc-static ${deps})
-#endmacro()
 
 # Macro to build source code
 macro(FLB_PLUGIN name src deps)
