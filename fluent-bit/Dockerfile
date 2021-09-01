@@ -1,7 +1,7 @@
 FROM debian:testing-20210816-slim as builder
 
 # Fluent Bit version
-ENV FLB_VERSION 1.8.4
+ENV FLB_VERSION 1.8.5
 
 ARG FLB_TARBALL=https://github.com/fluent/fluent-bit/archive/v$FLB_VERSION.tar.gz
 ENV FLB_SOURCE $FLB_TARBALL
@@ -22,6 +22,7 @@ RUN apt-get update && \
     libsasl2-dev \
     pkg-config \
     libjemalloc-dev \
+    libc-ares-dev \ 
     libsystemd-dev \
     zlib1g-dev \
     libpq-dev \
