@@ -1,4 +1,4 @@
-# Fluent Bit Docker Image
+# Fluent Bit Docker Image 
 
 This image is based on the official [Fluent Bit Docker image](https://github.com/fluent/fluent-bit/blob/v1.8.4/dockerfiles/Dockerfile.x86_64).
 

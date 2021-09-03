@@ -1,7 +1,6 @@
 FROM debian:testing-20210816-slim as builder
 
-# Fluent Bit version
-ENV FLB_VERSION 1.8.5
+ARG FLB_VERSION
 
 ARG FLB_TARBALL=https://github.com/fluent/fluent-bit/archive/v$FLB_VERSION.tar.gz
 ENV FLB_SOURCE $FLB_TARBALL

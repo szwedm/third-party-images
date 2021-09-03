@@ -1,4 +1,4 @@
-FROM alpine as builder
+FROM alpine:3.14.2 as builder
 
 ENV exporter_version 1.1.2
 
