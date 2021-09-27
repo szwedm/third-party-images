@@ -2,7 +2,7 @@ FROM eu.gcr.io/kyma-project/external/quay.io/coreos/etcd:v3.3.25 as builder
 
 # builder relies on https://github.com/etcd-io/etcd/blob/v3.3.25/Dockerfile-release
 
-FROM alpine:3.13.5
+FROM alpine:3.14.2
 
 LABEL source=git@github.com:kyma-project/kyma.git
 
