@@ -1,6 +1,6 @@
 FROM registry:2.7.1 as builder
 
-FROM alpine:3.13.5
+FROM alpine:3.14.2
 
 RUN set -ex \
     && apk --no-cache upgrade \
