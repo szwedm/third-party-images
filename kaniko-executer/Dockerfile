@@ -15,7 +15,7 @@
 # Builds the static Go image to execute in a Kubernetes job
 
 # using alpine image is not feasible due to  https://wiki.alpinelinux.org/wiki/Release_Notes_for_Alpine_3.14.0#faccessat
-FROM golang:1.16-bullseye
+FROM golang:1.16.8-bullseye
 
 ARG KANIKO_VERSION
 
