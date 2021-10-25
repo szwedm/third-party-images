@@ -14,11 +14,9 @@
 
 # Builds the static Go image to execute in a Kubernetes job
 
-# using alpine image is not feasible due to  https://wiki.alpinelinux.org/wiki/Release_Notes_for_Alpine_3.14.0#faccessat
-FROM golang:1.16.8-bullseye
+FROM golang:1.15.15-alpine3.14
 
 ARG KANIKO_VERSION
-
 ARG GOARCH=amd64
 WORKDIR /go/src/github.com/GoogleContainerTools/kaniko
 
@@ -30,7 +28,7 @@ ARG TARGETPLATFORM
 #Capture ARCH has write to /goarch
 RUN [ ! "x" = "x$TARGETPLATFORM" ] && `echo $TARGETPLATFORM |  awk '{split($0,a,"/"); print a[2]}' > /goarch` || echo "$GOARCH"
 
-RUN apt update -q -y && apt dist-upgrade -y && apt install -q -y git build-essential 
+RUN apk upgrade && apk add git make build-base bash
 # Get GCR credential helper
 RUN GOARCH=$(cat /goarch) && CGO_ENABLED=0 && \
   (mkdir -p /go/src/github.com/GoogleCloudPlatform || true)                  && \
