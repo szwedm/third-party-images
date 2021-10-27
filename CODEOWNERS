@@ -27,7 +27,7 @@
 /etcd/ @piotrmiskiewicz @ksputo @jasiu001 @crabtree
 
 # The `k8s-tools` repo
-/k8s-tools/ @adamwalach @Ressetkk @Halamix2 @dekiel @tehcyx @kasiakepka
+/k8s-tools/ @kyma-project/prow
 
 # The `console-nginx` repo
 /console-nginx/ @akucharska @dariadomagala @parostatkiem @Wawrzyn321
