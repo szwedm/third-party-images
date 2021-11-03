@@ -1,8 +1,8 @@
 ARG GRAFANA_VERSION
 
-FROM grafana/grafana:${GRAFANA_VERSION} as builder
+FROM grafana/grafana:${GRAFANA_VERSION} as grafana-builder
 
-FROM alpine:3.14.2
+FROM alpine:3.14.2 as grafana
 
 ARG GF_UID="472"
 ARG GF_GID="0"
@@ -21,7 +21,7 @@ RUN apk --no-cache upgrade && \
     apk add --no-cache ca-certificates bash tzdata && \
     apk add --no-cache openssl musl-utils
 
-COPY --from=builder "$GF_PATHS_HOME" "$GF_PATHS_HOME"
+COPY --from=grafana-builder "$GF_PATHS_HOME" "$GF_PATHS_HOME"
 
 RUN if [ ! $(getent group "$GF_GID") ]; then \
       addgroup -S -g $GF_GID grafana; \
@@ -48,3 +48,33 @@ COPY ./run.sh /run.sh
 
 USER "$GF_UID"
 ENTRYPOINT [ "/run.sh" ]
+
+FROM golang:1.16 as go-builder
+
+ENV GO111MODULE=on
+
+WORKDIR /workspace
+
+COPY go.mod go.mod
+COPY go.sum go.sum
+
+RUN go mod download
+
+COPY main_test.go main_test.go
+COPY main.go main.go
+
+RUN go mod verify
+RUN go test ./...
+
+RUN rm main_test.go
+
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o grafanawatcher main.go
+
+
+FROM grafana
+
+WORKDIR /
+COPY --from=go-builder /workspace/grafanawatcher .
+USER 65532:65532
+
+ENTRYPOINT ["/grafanawatcher"]
