@@ -14,7 +14,7 @@
 
 # Builds the static Go image to execute in a Kubernetes job
 
-FROM golang:1.15.15-alpine3.14
+FROM golang:1.17.3-alpine3.14
 
 ARG KANIKO_VERSION
 ARG GOARCH=amd64
