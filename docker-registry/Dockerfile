@@ -1,19 +1,29 @@
-FROM registry:2.7.1 as builder
+FROM golang:1.17-alpine AS build
 
-FROM alpine:3.14.2
+ENV GO111MODULE=auto
+ENV DISTRIBUTION_DIR /go/src/github.com/docker/distribution
+ENV BUILDTAGS include_oss include_gcs
+
+ARG GOOS=linux
+ARG GOARCH=amd64
+ARG GOARM=6
 
 RUN set -ex \
-    && apk --no-cache upgrade \
-    && apk add --no-cache ca-certificates apache2-utils
+    && apk add --no-cache make git file
 
-COPY --from=builder /bin/registry /bin/registry
-COPY --from=builder /etc/docker/registry/config.yml /etc/docker/registry/config.yml
-COPY --from=builder /entrypoint.sh /entrypoint.sh
+WORKDIR $DISTRIBUTION_DIR
+RUN git clone -b release/2.7 https://github.com/distribution/distribution $DISTRIBUTION_DIR
+
+RUN CGO_ENABLED=0 make PREFIX=/go clean binaries && file ./bin/registry | grep "statically linked"
+
+FROM alpine:3.14.2
+COPY --from=build /go/src/github.com/docker/distribution/cmd/registry/config-dev.yml /etc/docker/registry/config.yml
+COPY --from=build /go/src/github.com/docker/distribution/bin/registry /bin/registry
 
 VOLUME ["/var/lib/registry"]
 EXPOSE 5000
 
 LABEL source=git@github.com:kyma-project/kyma.git
 
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/etc/docker/registry/config.yml"]
+ENTRYPOINT ["registry"]
+CMD ["serve", "/etc/docker/registry/config.yml"]
