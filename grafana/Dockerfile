@@ -2,7 +2,7 @@ ARG GRAFANA_VERSION
 
 FROM grafana/grafana:${GRAFANA_VERSION} as grafana-builder
 
-FROM alpine:3.14.2 as grafana
+FROM alpine:3.15.0 as grafana
 
 ARG GF_UID="472"
 ARG GF_GID="0"
@@ -49,7 +49,7 @@ COPY ./run.sh /run.sh
 USER "$GF_UID"
 ENTRYPOINT [ "/run.sh" ]
 
-FROM golang:1.16 as go-builder
+FROM golang:1.17 as go-builder
 
 ENV GO111MODULE=on
 
@@ -69,7 +69,6 @@ RUN go test ./...
 RUN rm main_test.go
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o grafanawatcher main.go
-
 
 FROM grafana
 
