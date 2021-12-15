@@ -1,8 +1,8 @@
-FROM jaegertracing/jaeger-operator:1.18.1 as builder
+FROM jaegertracing/jaeger-operator:1.29.0 as builder
 
 FROM scratch
 
-ENV OPERATOR=/usr/local/bin/jaeger-operator \
+ENV OPERATOR=/jaeger-operator \
     USER_UID=1001 \
     USER_NAME=jaeger-operator
 
@@ -11,6 +11,6 @@ COPY --from=builder /scripts/ /scripts/
 
 LABEL source=git@github.com:kyma-project/kyma.git
 
-ENTRYPOINT ["/usr/local/bin/jaeger-operator"]
+ENTRYPOINT ["/jaeger-operator"]
 
 USER ${USER_UID}
