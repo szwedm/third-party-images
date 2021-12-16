@@ -21,10 +21,10 @@
 /kaniko-executer/ @m00g3n @pPrecel @dbadura @tgorgol @rJankowski93 @moelsayed
 
 # The `cloudsql-proxy` repo
-/cloudsql-proxy/ @piotrmiskiewicz @ksputo @jasiu001 @crabtree
+/cloudsql-proxy/ @piotrmiskiewicz @ksputo 
 
 # The `etcd` repo
-/etcd/ @piotrmiskiewicz @ksputo @jasiu001 @crabtree
+/etcd/ @piotrmiskiewicz @ksputo 
 
 # The `k8s-tools` repo
 /k8s-tools/ @kyma-project/prow
