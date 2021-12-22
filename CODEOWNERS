@@ -29,8 +29,5 @@
 # The `k8s-tools` repo
 /k8s-tools/ @kyma-project/prow
 
-# The `console-nginx` repo
-/console-nginx/ @akucharska @dariadomagala @parostatkiem @Wawrzyn321
-
 # All .md files
 *.md @majakurcius @klaudiagrz @alexandra-simeonova @mmitoraj @NHingerl
