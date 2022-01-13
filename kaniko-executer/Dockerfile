@@ -13,7 +13,6 @@
 # limitations under the License.
 
 # Builds the static Go image to execute in a Kubernetes job
-
 FROM golang:1.17.3-alpine3.14
 
 ARG KANIKO_VERSION
@@ -54,7 +53,6 @@ RUN mkdir -p /kaniko/.docker
 RUN git clone --depth 1 --branch v$KANIKO_VERSION https://github.com/GoogleContainerTools/kaniko . && make GOARCH=$(cat /goarch)
 
 # Generate latest ca-certificates
-
 FROM debian:buster-slim AS certs
 
 RUN \
