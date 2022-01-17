@@ -2,7 +2,7 @@ ARG OAUTH2_PROXY_VERSION
 
 FROM quay.io/oauth2-proxy/oauth2-proxy:v${OAUTH2_PROXY_VERSION} as builder
  
-FROM alpine:3.15
+FROM alpine:3.15.0
 
 RUN apk --no-cache upgrade
 

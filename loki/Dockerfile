@@ -2,7 +2,7 @@ ARG LOKI_VERSION
 
 FROM grafana/loki:${LOKI_VERSION} as builder
 
-FROM alpine:3.14.2
+FROM alpine:3.15.0
 
 RUN apk --no-cache upgrade && \
     apk add --no-cache ca-certificates libcap
