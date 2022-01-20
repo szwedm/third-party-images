@@ -1,6 +1,6 @@
-FROM gcr.io/cloudsql-docker/gce-proxy:1.27.0-alpine as builder
+FROM gcr.io/cloudsql-docker/gce-proxy:1.28.0-alpine as builder
 
-FROM alpine:3.14.2
+FROM alpine:3.14.3
 
 LABEL source=git@github.com:kyma-project/kyma.git
 
