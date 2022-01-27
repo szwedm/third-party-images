@@ -20,6 +20,9 @@
 # The `kaniko-executer` repo
 /kaniko-executer/ @m00g3n @pPrecel @dbadura @tgorgol @rJankowski93 @moelsayed
 
+# The `serverless-bench` repo
+/serverless-bench/ @m00g3n @pPrecel @dbadura @tgorgol @rJankowski93 @moelsayed
+
 # The `cloudsql-proxy` repo
 /cloudsql-proxy/ @piotrmiskiewicz @ksputo 
 
