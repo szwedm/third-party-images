@@ -6,7 +6,7 @@
 # For more details, read the following article on GitHub: https://help.github.com/articles/about-codeowners/.
 
 # These are the default owners for the whole content of the `third-party-images` repository. The default owners are automatically added as reviewers when you open a pull request, unless different owners are specified in the file.
-* @a-thaler @skhalash @lilitgh @suleymanakbas91 @clebs @rakesh-garimella @tobiscr @kyma-project/prow
+* @kyma-project/prow
 
 # The `docker-registry` repo
 /docker-registry/ @m00g3n @pPrecel @dbadura @tgorgol @rJankowski93
@@ -27,7 +27,28 @@
 /cloudsql-proxy/ @piotrmiskiewicz @ksputo 
 
 # The `etcd` repo
-/etcd/ @piotrmiskiewicz @ksputo 
+/etcd/ @piotrmiskiewicz @ksputo
+
+# The `fluent-bit` repo
+/fluent-bit/ @a-thaler @skhalash @lilitgh @rakesh-garimella @chrkl @lindnerby
+
+# The `grafana` repo
+/grafana/ @a-thaler @skhalash @lilitgh @rakesh-garimella @chrkl @lindnerby
+
+# The `jaeger-operator` repo
+/jaeger-operator/ @a-thaler @skhalash @lilitgh @rakesh-garimella @chrkl @lindnerby
+
+# The `kiali` repo
+/kiali/ @a-thaler @skhalash @lilitgh @rakesh-garimella @chrkl @lindnerby
+
+# The `loki` repo
+/loki/ @a-thaler @skhalash @lilitgh @rakesh-garimella @chrkl @lindnerby
+
+# The `oauth2-proxy` repo
+/oauth2-proxy/ @a-thaler @skhalash @lilitgh @rakesh-garimella @chrkl @lindnerby
+
+# The `prometheus-node-exporter` repo
+/prometheus-node-exporter/ @a-thaler @skhalash @lilitgh @rakesh-garimella @chrkl @lindnerby
 
 # The `k8s-tools` repo
 /k8s-tools/ @kyma-project/prow
