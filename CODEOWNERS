@@ -9,19 +9,19 @@
 * @kyma-project/prow
 
 # The `docker-registry` repo
-/docker-registry/ @m00g3n @pPrecel @dbadura @tgorgol @rJankowski93
+/docker-registry/ @m00g3n @pPrecel @dbadura @moelsayed @cortey
 
 # The `minio` repo
-/minio/ @m00g3n @pPrecel @dbadura @tgorgol @rJankowski93
+/minio/ @m00g3n @pPrecel @dbadura @moelsayed @cortey
 
 # The `minio client` repo
-/minio-mc/ @m00g3n @pPrecel @dbadura @tgorgol @rJankowski93
+/minio-mc/ @m00g3n @pPrecel @dbadura @moelsayed @cortey
 
 # The `kaniko-executer` repo
-/kaniko-executer/ @m00g3n @pPrecel @dbadura @tgorgol @rJankowski93 @moelsayed
+/kaniko-executer/ @m00g3n @pPrecel @dbadura @moelsayed @cortey
 
 # The `serverless-bench` repo
-/serverless-bench/ @m00g3n @pPrecel @dbadura @tgorgol @rJankowski93 @moelsayed
+/serverless-bench/ @m00g3n @pPrecel @dbadura @moelsayed @cortey
 
 # The `cloudsql-proxy` repo
 /cloudsql-proxy/ @piotrmiskiewicz @ksputo 
