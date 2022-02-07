@@ -51,4 +51,4 @@
 /k8s-tools/ @kyma-project/prow
 
 # All .md files
-*.md @majakurcius @klaudiagrz @alexandra-simeonova @mmitoraj @NHingerl
+*.md @majakurcius @klaudiagrz @alexandra-simeonova @mmitoraj @NHingerl @grego952
