@@ -34,6 +34,9 @@ RUN apt-get update && \
     && cd fluent-bit/build/ \
     && rm -rf /tmp/fluent-bit/build/*
 
+# Fix Loki issue https://github.com/fluent/fluent-bit/issues/4283
+RUN sed -i 's/flb_plg_warn(ctx->ins, "could not translate record accessor");/flb_plg_debug(ctx->ins, "could not translate record accessor");/' /tmp/fluent-bit/plugins/out_loki/loki.c
+
 WORKDIR /tmp/fluent-bit/build/
 RUN cmake -DFLB_RELEASE=On \
           -DFLB_TRACE=Off \
