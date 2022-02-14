@@ -1,6 +1,6 @@
 APP_NAME ?= grafana
 # 7.5.x is the last version on Apache 2.0 license, please verify the license before upgrading further 
-GRAFANA_VERSION = 7.5.13
+GRAFANA_VERSION = 7.5.15
 TAG = $(GRAFANA_VERSION)-$(DOCKER_TAG)
 IMG = $(DOCKER_PUSH_REPOSITORY)$(DOCKER_PUSH_DIRECTORY)/$(APP_NAME):$(TAG)
 IMG_DOCKER_TAG = $(DOCKER_PUSH_REPOSITORY)$(DOCKER_PUSH_DIRECTORY)/$(APP_NAME):$(DOCKER_TAG)
