@@ -4,6 +4,7 @@ FROM alpine:3.15.0
 
 LABEL source=git@github.com:kyma-project/kyma.git
 
+RUN apk --no-cache add --update openssl openssl-dev --repository=https://dl-cdn.alpinelinux.org/alpine/edge/main
 RUN apk --no-cache upgrade && \
     apk --no-cache add \ 
     ca-certificates \
