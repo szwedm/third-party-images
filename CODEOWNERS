@@ -21,10 +21,10 @@
 /kaniko-executer/ @m00g3n @pPrecel @dbadura @moelsayed @cortey
 
 # The `cloudsql-proxy` repo
-/cloudsql-proxy/ @piotrmiskiewicz @ksputo 
+/cloudsql-proxy/ @piotrmiskiewicz @ksputo @szwedm @voigt @wozniakjan @hanngos @tillknuesting @ralikio
 
 # The `etcd` repo
-/etcd/ @piotrmiskiewicz @ksputo
+/etcd/ @piotrmiskiewicz @ksputo @szwedm @voigt @wozniakjan @hanngos @tillknuesting @ralikio
 
 # The `fluent-bit` repo
 /fluent-bit/ @a-thaler @skhalash @lilitgh @rakesh-garimella @chrkl @lindnerby
