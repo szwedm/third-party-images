@@ -2,7 +2,7 @@ ARG KIWIGRID_SIDECAR_VERSION
 
 FROM kiwigrid/k8s-sidecar:${KIWIGRID_SIDECAR_VERSION} as builder
 
-FROM python:3.10.1-alpine3.15
+FROM python:3.10.2-alpine3.15
 
 ARG KIWIGRID_SIDECAR_VERSION
 
@@ -10,7 +10,7 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-RUN wget https://raw.githubusercontent.com/kiwigrid/k8s-sidecar/${KIWIGRID_SIDECAR_VERSION}/requirements.txt
+RUN wget https://raw.githubusercontent.com/kiwigrid/k8s-sidecar/${KIWIGRID_SIDECAR_VERSION}/src/requirements.txt
 
 COPY --from=builder /app/* /app/
 RUN apk --no-cache upgrade && \
