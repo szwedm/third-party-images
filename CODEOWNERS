@@ -21,10 +21,10 @@
 /kaniko-executer/ @m00g3n @pPrecel @dbadura @moelsayed @cortey
 
 # The `cloudsql-proxy` repo
-/cloudsql-proxy/ @piotrmiskiewicz @ksputo @szwedm @voigt @wozniakjan @hanngos @tillknuesting @ralikio
+/cloudsql-proxy/ @piotrmiskiewicz @szwedm @wozniakjan @hanngos @tillknuesting @ralikio
 
 # The `etcd` repo
-/etcd/ @piotrmiskiewicz @ksputo @szwedm @voigt @wozniakjan @hanngos @tillknuesting @ralikio
+/etcd/ @piotrmiskiewicz @szwedm @wozniakjan @hanngos @tillknuesting @ralikio
 
 # The `fluent-bit` repo
 /fluent-bit/ @a-thaler @skhalash @lilitgh @rakesh-garimella @chrkl @lindnerby
@@ -51,4 +51,4 @@
 /k8s-tools/ @kyma-project/prow
 
 # All .md files
-*.md @majakurcius @klaudiagrz @alexandra-simeonova @mmitoraj @NHingerl @grego952
+*.md @majakurcius @klaudiagrz @mmitoraj @NHingerl @grego952
