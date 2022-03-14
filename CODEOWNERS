@@ -14,9 +14,6 @@
 # The `minio` repo
 /minio/ @m00g3n @pPrecel @dbadura @moelsayed @cortey
 
-# The `minio client` repo
-/minio-mc/ @m00g3n @pPrecel @dbadura @moelsayed @cortey
-
 # The `kaniko-executer` repo
 /kaniko-executer/ @m00g3n @pPrecel @dbadura @moelsayed @cortey
 
