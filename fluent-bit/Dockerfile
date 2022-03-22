@@ -1,4 +1,4 @@
-FROM debian:testing-20220228-slim as builder
+FROM debian:testing-20220316-slim as builder
 
 ARG FLB_VERSION
 
@@ -33,9 +33,6 @@ RUN apt-get update && \
     && tar zxfv fluent-bit.tar.gz -C ./fluent-bit --strip-components=1 \
     && cd fluent-bit/build/ \
     && rm -rf /tmp/fluent-bit/build/*
-
-# Fix Loki issue https://github.com/fluent/fluent-bit/issues/4283
-RUN sed -i 's/flb_plg_warn(ctx->ins, "could not translate record accessor");/flb_plg_debug(ctx->ins, "could not translate record accessor");/' /tmp/fluent-bit/plugins/out_loki/loki.c
 
 WORKDIR /tmp/fluent-bit/build/
 RUN cmake -DFLB_RELEASE=On \
@@ -87,7 +84,7 @@ WORKDIR /tmp/src
 RUN make clean && make BUILD_IN_CONTAINER=false fluent-bit-plugin 
 RUN cp /tmp/src/cmd/fluent-bit/out_grafana_loki.so /loki
 
-FROM debian:testing-20220228-slim
+FROM debian:testing-20220316-slim
 
 RUN apt-get update && \
     apt-get -y dist-upgrade && \
