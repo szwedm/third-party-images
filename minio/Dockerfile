@@ -1,7 +1,7 @@
 ARG MINIO_VERSION
 FROM minio/minio:${MINIO_VERSION} as builder
 
-FROM alpine:3.14.2
+FROM alpine:3.15.2
 
 LABEL source=git@github.com:kyma-project/kyma.git
 
