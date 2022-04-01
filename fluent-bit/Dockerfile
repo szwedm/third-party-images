@@ -1,4 +1,4 @@
-FROM debian:testing-20220316-slim as builder
+FROM debian:testing-20220328-slim as builder
 
 ARG FLB_VERSION
 
@@ -84,7 +84,7 @@ WORKDIR /tmp/src
 RUN make clean && make BUILD_IN_CONTAINER=false fluent-bit-plugin 
 RUN cp /tmp/src/cmd/fluent-bit/out_grafana_loki.so /loki
 
-FROM debian:testing-20220316-slim
+FROM debian:testing-20220328-slim
 
 RUN apt-get update && \
     apt-get -y dist-upgrade && \
@@ -106,3 +106,4 @@ EXPOSE 2020
 
 LABEL source=git@github.com:kyma-project/kyma.git
 CMD ["/fluent-bit/bin/fluent-bit", "-e", "/fluent-bit/lib/flb-out_sequentialhttp.so", "-e", "/fluent-bit/lib/out_grafana_loki.so", "-c", "/fluent-bit/etc/fluent-bit.conf"]
+

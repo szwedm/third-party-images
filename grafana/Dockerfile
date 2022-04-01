@@ -2,7 +2,7 @@ ARG GRAFANA_VERSION
 
 FROM grafana/grafana:${GRAFANA_VERSION} as grafana-builder
 
-FROM alpine:3.15.0 as grafana
+FROM alpine:3.15.3 as grafana
 
 ARG GF_UID="472"
 ARG GF_GID="0"
@@ -49,7 +49,7 @@ COPY ./run.sh /run.sh
 USER "$GF_UID"
 ENTRYPOINT [ "/run.sh" ]
 
-FROM golang:1.17 as go-builder
+FROM golang:1.18 as go-builder
 
 ENV GO111MODULE=on
 
