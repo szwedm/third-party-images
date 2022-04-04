@@ -1,4 +1,4 @@
-FROM eu.gcr.io/kyma-project/external/golang:1.17.6-alpine3.15 as build
+FROM eu.gcr.io/kyma-project/external/golang:1.18.0-alpine3.15 as build
 
 ENV GO111MODULE=auto
 ENV DISTRIBUTION_DIR /go/src/github.com/docker/distribution
@@ -17,7 +17,7 @@ RUN git clone -b release/2.7 https://github.com/distribution/distribution $DISTR
 
 RUN CGO_ENABLED=0 make PREFIX=/go clean binaries && file ./bin/registry | grep "statically linked"
 
-FROM alpine:3.15.2
+FROM alpine:3.15.3
 
 RUN set -ex \
     && apk upgrade --no-cache \
