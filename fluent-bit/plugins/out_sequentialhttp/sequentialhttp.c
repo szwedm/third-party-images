@@ -186,7 +186,6 @@ static int http_post(struct flb_out_sequentialhttp *ctx,
          * - 203: no authorative resp
          * - 204: No Content
          * - 205: Reset content
-         *
          */
         if (c->resp.status < 200 || c->resp.status > 205) {
             if (ctx->log_response_payload &&
@@ -199,7 +198,16 @@ static int http_post(struct flb_out_sequentialhttp *ctx,
                 flb_plg_error(ctx->ins, "%s:%i, HTTP status=%i",
                               ctx->host, ctx->port, c->resp.status);
             }
-            out_ret = FLB_RETRY;
+            // In case of 4XX error we have unrecoverable error
+            if (c->resp.status >=400 && c->resp.status < 500) {
+                flb_plg_error(ctx->ins, "%s:%i, Unrecoverable error HTTP status=%i",
+                              ctx->host, ctx->port, c->resp.status);
+                out_ret = FLB_ERROR;
+            // Incase of others we can still try
+            } else {
+                out_ret = FLB_RETRY;
+            }
+            
         }
         else {
             if (ctx->log_response_payload &&
@@ -332,7 +340,8 @@ static int pack_msgpack_to_json_format_and_send_sequentially(struct flb_out_sequ
     msgpack_object *v;
     struct tm tm;
     struct flb_time tms;
-    int ret = 0;
+    int ret = FLB_OK;
+    int ret_temp = FLB_ERROR;
 
     records = flb_mp_count(data, bytes);
     if (records <= 0)
@@ -437,18 +446,22 @@ static int pack_msgpack_to_json_format_and_send_sequentially(struct flb_out_sequ
             return FLB_ERROR;
         }
 
-        ret = http_post(ctx, out_js, flb_sds_len(out_js), tag, tag_len);
-
-        /* if one log fails, the whole chunk has to be retried */
-        if (ret == FLB_RETRY)
-        {
-            flb_sds_destroy(out_js);
-            msgpack_sbuffer_clear(&tmp_sbuf);
-            return FLB_RETRY;
+        ret_temp = http_post(ctx, out_js, flb_sds_len(out_js), tag, tag_len);
+        if (ret_temp == FLB_RETRY) {
+            if (ret == FLB_RETRY || ret == FLB_OK ) {
+                ret = FLB_RETRY;
+            }
+        } else if (ret_temp == FLB_ERROR) {
+            ret = FLB_ERROR;
         }
 
         /* Release temporary json sds buffer */
         flb_sds_destroy(out_js);
+    }
+
+    /* if one log fails, the whole chunk has to be retried */
+    if (ret == FLB_RETRY) {
+        msgpack_sbuffer_clear(&tmp_sbuf);
     }
 
     msgpack_unpacked_destroy(&result);
