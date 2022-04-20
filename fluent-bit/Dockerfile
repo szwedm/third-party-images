@@ -1,4 +1,4 @@
-FROM debian:testing-20220328-slim as builder
+FROM debian:testing-20220418-slim as builder
 
 ARG FLB_VERSION
 
@@ -72,10 +72,10 @@ RUN cp conf/fluent-bit.conf \
      conf/plugins.conf \
      /fluent-bit/etc/
 
-FROM golang:1.17 as lokibuilder
+FROM golang:1.18 as lokibuilder
 
 # 2.2.x is the last version on Apache 2.0 license, please verify the license before upgrading further
-ENV LOKI_VERSION 2.2.1 
+ENV LOKI_VERSION 2.2.1
 
 RUN mkdir -p /tmp/src /loki
 RUN curl -L https://github.com/grafana/loki/archive/v${LOKI_VERSION}.tar.gz | \
@@ -84,7 +84,7 @@ WORKDIR /tmp/src
 RUN make clean && make BUILD_IN_CONTAINER=false fluent-bit-plugin 
 RUN cp /tmp/src/cmd/fluent-bit/out_grafana_loki.so /loki
 
-FROM debian:testing-20220328-slim
+FROM debian:testing-20220418-slim
 
 RUN apt-get update && \
     apt-get -y dist-upgrade && \
