@@ -72,7 +72,7 @@ RUN cp conf/fluent-bit.conf \
      conf/plugins.conf \
      /fluent-bit/etc/
 
-FROM golang:1.18 as lokibuilder
+FROM golang:1.17 as lokibuilder
 
 # 2.2.x is the last version on Apache 2.0 license, please verify the license before upgrading further
 ENV LOKI_VERSION 2.2.1
