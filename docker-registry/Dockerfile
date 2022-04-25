@@ -17,7 +17,7 @@ RUN git clone -b release/2.7 https://github.com/distribution/distribution $DISTR
 
 RUN CGO_ENABLED=0 make PREFIX=/go clean binaries && file ./bin/registry | grep "statically linked"
 
-FROM alpine:3.15.3
+FROM alpine:3.15.4
 
 RUN set -ex \
     && apk upgrade --no-cache \
