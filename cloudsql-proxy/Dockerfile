@@ -1,4 +1,4 @@
-FROM gcr.io/cloudsql-docker/gce-proxy:1.30.0-alpine as builder
+FROM gcr.io/cloudsql-docker/gce-proxy:1.30.1-alpine as builder
 
 FROM alpine:3.15.4
 
