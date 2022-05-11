@@ -14,7 +14,7 @@
 
 # Builds the static Go image to execute in a Kubernetes job
 
-FROM eu.gcr.io/kyma-project/external/golang:1.18.0-alpine3.15 as builder
+FROM eu.gcr.io/kyma-project/external/golang:1.18.1-alpine3.15 as builder
 
 ARG KANIKO_VERSION
 ARG GOARCH=amd64
