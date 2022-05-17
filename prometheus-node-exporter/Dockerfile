@@ -1,4 +1,4 @@
-FROM alpine:3.15.3 as builder
+FROM alpine:3.15.4 as builder
 
 ENV exporter_version 1.3.1
 
@@ -21,3 +21,4 @@ USER nobody
 LABEL source=git@github.com:kyma-project/kyma.git
 
 ENTRYPOINT ["node_exporter"]
+
