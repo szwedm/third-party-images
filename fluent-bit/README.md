@@ -1,8 +1,6 @@
-# Fluent Bit Docker Image 
+# Fluent Bit Docker Image
 
-This image is based on the official [Fluent Bit Docker image](https://github.com/fluent/fluent-bit/blob/v1.8.11/dockerfiles/Dockerfile.x86_64).
-
-We add modifications so that we use the latest `debian:testing-slim` variant, as opposed to the upstream distroless image, which is always `debian:stable`-based.
+This image is based on the official [Fluent Bit Docker image](https://github.com/fluent/fluent-bit/blob/master/dockerfiles/Dockerfile).
 
 The custom plugin has the following customizations:
 
@@ -58,7 +56,7 @@ An example Fluent Bit configuration looks as follows:
 kubectl logs {FLUENT_BIT_POD_COLOCATED_WITH_DEX} fluent-bit
 ```
 
-4. Edit the `logging-fluent-bit-config` ConfigMap, and replace `sequentialhttp` with the old `http` plugin. Restart the Pod you observed in the previous step. Check the logs. Look for log entries produced by `http`. The requests now contain batched log entries. 
+4. Edit the `logging-fluent-bit-config` ConfigMap, and replace `sequentialhttp` with the old `http` plugin. Restart the Pod you observed in the previous step. Check the logs. Look for log entries produced by `http`. The requests now contain batched log entries.
 
 ### Load testing
 

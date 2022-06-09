@@ -25,6 +25,8 @@ message(STATUS "Fluent Bit source code: " ${FLB_SOURCE})
 
 # Include Headers
 set(FLB_PATH_ROOT_SOURCE ${FLB_SOURCE})
+set(CMAKE_CURRENT_BINARY_DIR ${FLB_SOURCE}/build)
+
 include(${FLB_SOURCE}/cmake/libraries.cmake)
 include(${FLB_SOURCE}/cmake/headers.cmake)
 
