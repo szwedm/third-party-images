@@ -2,8 +2,7 @@
 
 /*  Fluent Bit
  *  ==========
- *  Copyright (C) 2019-2021 The Fluent Bit Authors
- *  Copyright (C) 2015-2018 Treasure Data Inc.
+ *  Copyright (C) 2015-2022 The Fluent Bit Authors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -52,6 +51,16 @@ struct flb_out_sequentialhttp {
 
     /* GELF fields */
     struct flb_gelf_fields gelf_fields;
+
+    /* which record key to use as body */
+    flb_sds_t body_key;
+
+    struct flb_record_accessor *body_ra;
+
+    /* override headers with contents of the map in the key specified here */
+    flb_sds_t headers_key;
+
+    struct flb_record_accessor *headers_ra;
 
     /* Include tag in header */
     flb_sds_t header_tag;

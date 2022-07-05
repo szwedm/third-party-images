@@ -2,8 +2,7 @@
 
 /*  Fluent Bit
  *  ==========
- *  Copyright (C) 2019-2021 The Fluent Bit Authors
- *  Copyright (C) 2015-2018 Treasure Data Inc.
+ *  Copyright (C) 2015-2022 The Fluent Bit Authors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -609,6 +608,26 @@ static struct flb_config_map config_map[] = {
      0, FLB_TRUE, offsetof(struct flb_out_sequentialhttp, gelf_fields.level_key),
      "Specify the key to use for the 'level' in gelf format"
     },
+    {
+     FLB_CONFIG_MAP_STR, "body_key", NULL,
+     0, FLB_TRUE, offsetof(struct flb_out_sequentialhttp, body_key),
+     "Specify the key which contains the body"
+    },
+    {
+     FLB_CONFIG_MAP_STR, "headers_key", NULL,
+     0, FLB_TRUE, offsetof(struct flb_out_sequentialhttp, headers_key),
+     "Specify the key which contains the headers"
+    },
+    {
+     FLB_CONFIG_MAP_STR, "body_key", NULL,
+     0, FLB_TRUE, offsetof(struct flb_out_sequentialhttp, body_key),
+     "Specify the key which contains the body"
+    },
+    {
+     FLB_CONFIG_MAP_STR, "headers_key", NULL,
+     0, FLB_TRUE, offsetof(struct flb_out_sequentialhttp, headers_key),
+     "Specify the key which contains the headers"
+    },
 
     /* EOF */
     {0}
@@ -624,4 +643,5 @@ struct flb_output_plugin out_sequentialhttp_plugin = {
     .cb_exit     = cb_http_exit,
     .config_map  = config_map,
     .flags       = FLB_OUTPUT_NET | FLB_IO_OPT_TLS,
+    .workers     = 2
 };

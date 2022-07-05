@@ -28,6 +28,7 @@ RUN apt-get update && \
     postgresql-server-dev-all \
     flex \
     bison \
+    libyaml-dev \
     libjemalloc-dev \
     libc-ares-dev \ 
     && curl -L -o "/tmp/fluent-bit.tar.gz" ${FLB_SOURCE} \
