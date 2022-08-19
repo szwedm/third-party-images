@@ -80,4 +80,3 @@ COPY --from=loki-builder /loki/out_grafana_loki.so /fluent-bit/lib/out_grafana_l
 
 LABEL source=git@github.com:kyma-project/kyma.git
 CMD ["/fluent-bit/bin/fluent-bit", "-e", "/fluent-bit/lib/flb-out_sequentialhttp.so", "-e", "/fluent-bit/lib/out_grafana_loki.so", "-c", "/fluent-bit/etc/fluent-bit.conf"]
-
