@@ -1,5 +1,5 @@
 APP_NAME ?= fluent-bit
-FLUENTBIT_VERSION = 1.9.6
+FLUENTBIT_VERSION = 1.9.7
 # 2.2.x is the last version on Apache 2.0 license, please verify the license before upgrading further
 LOKI_VERSION = 2.2.1
 TAG = $(FLUENTBIT_VERSION)-$(DOCKER_TAG)
