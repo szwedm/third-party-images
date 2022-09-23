@@ -1,4 +1,6 @@
-FROM jaegertracing/jaeger-operator:1.30.0 as builder
+ARG JAEGER_OPERATOR_VERSION
+
+FROM jaegertracing/jaeger-operator:${JAEGER_OPERATOR_VERSION} as builder
 
 FROM scratch
 
