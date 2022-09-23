@@ -62,13 +62,20 @@ RUN cmake -DFLB_SOURCE=/tmp/fluent-bit \
 RUN make -j $(getconf _NPROCESSORS_ONLN)
 
 # build loki plugin
-FROM golang:1.17 as loki-builder
+FROM golang:1.19 as loki-builder
 ARG LOKI_VERSION
 
+# download sources
 RUN mkdir -p /tmp/src /loki
 RUN curl -L https://github.com/grafana/loki/archive/v${LOKI_VERSION}.tar.gz | \
     tar zx --strip=1 -C /tmp/src/
 WORKDIR /tmp/src
+
+# fix compatibility issue with golang 1.19
+RUN go get github.com/json-iterator/go@v1.1.12
+RUN go mod vendor
+
+# build the plugin
 RUN make clean && make BUILD_IN_CONTAINER=false fluent-bit-plugin 
 RUN cp /tmp/src/cmd/fluent-bit/out_grafana_loki.so /loki
 
