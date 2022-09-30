@@ -1,13 +1,13 @@
-FROM alpine:3.16.2 as builder
+FROM alpine:3.16 as builder
 
-ENV exporter_version 1.3.1
+ARG NODE_EXPORTER_VERSION
 
 RUN apk update && apk upgrade && \
     apk add --no-cache bash curl
 
-RUN curl -LO https://github.com/prometheus/node_exporter/releases/download/v${exporter_version}/node_exporter-${exporter_version}.linux-amd64.tar.gz \
-    && tar -xvzf node_exporter-${exporter_version}.linux-amd64.tar.gz  \
-    && cp node_exporter-${exporter_version}.linux-amd64/node_exporter /tmp/
+RUN curl -LO https://github.com/prometheus/node_exporter/releases/download/v${NODE_EXPORTER_VERSION}/node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64.tar.gz \
+    && tar -xvzf node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64.tar.gz  \
+    && cp node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64/node_exporter /tmp/
 
 FROM scratch
 
