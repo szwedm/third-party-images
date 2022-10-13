@@ -1,16 +1,26 @@
+ARG RUNTIME_IMAGE=alpine:3.16.2
+
+FROM golang:1.19-buster as builder
+
 ARG OAUTH2_PROXY_VERSION
 
-FROM quay.io/oauth2-proxy/oauth2-proxy:v${OAUTH2_PROXY_VERSION} as builder
+WORKDIR /src/oauth2
+ADD https://github.com/oauth2-proxy/oauth2-proxy/archive/refs/tags/v${OAUTH2_PROXY_VERSION}.tar.gz /oauth2.tar.gz
+RUN tar -xz --strip-components=1 --directory=/src/oauth2 --file=/oauth2.tar.gz
+
+RUN go mod download
+
+RUN GOARCH=amd64 VERSION=${OAUTH2_PROXY_VERSION} make build && touch jwt_signing_key.pem
  
-FROM alpine:3.16.2
+FROM ${RUNTIME_IMAGE}
 
 RUN apk --no-cache upgrade
 
 COPY --from=builder /etc/nsswitch.conf /etc/nsswitch.conf
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-COPY --from=builder /bin/oauth2-proxy /bin/oauth2-proxy
-COPY --from=builder /etc/ssl/private/jwt_signing_key.pem /etc/ssl/private/jwt_signing_key.pem
+COPY --from=builder /src/oauth2/oauth2-proxy /bin/oauth2-proxy
+COPY --from=builder /src/oauth2/jwt_signing_key.pem /etc/ssl/private/jwt_signing_key.pem
 
-USER 2000:2000
+USER 65532:65532
 
 ENTRYPOINT ["/bin/oauth2-proxy"]
