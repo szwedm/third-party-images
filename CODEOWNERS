@@ -8,23 +8,24 @@
 # These are the default owners for the whole content of the `fluentbit` repository. The default owners are automatically added as reviewers when you open a pull request, unless different owners are specified in the file.
 * @a-thaler @PK85 @pbochynski @kwiatekus
 
-/.github/ISSUE_TEMPLATE @NHingerl @grego952 @klaudiagrz @majakurcius @mmitoraj
+/.github/ISSUE_TEMPLATE @NHingerl @grego952 @majakurcius @mmitoraj
 /.github @kyma-project/prow
-/cloudsql-proxy @ralikio @szwedm @tillknuesting @wozniakjan @hanngos @piotrmiskiewicz @pk85
+/cloudsql-proxy @ralikio @szwedm @tillknuesting @wozniakjan @piotrmiskiewicz @pk85
 /common @kyma-project/prow
 /docker-registry @cortey @dbadura @m00g3n @moelsayed @pprecel
-/etcd @pk85 @ralikio @szwedm @tillknuesting @wozniakjan @hanngos @piotrmiskiewicz
+/etcd @pk85 @ralikio @szwedm @tillknuesting @wozniakjan @piotrmiskiewicz
 /fluent-bit @dennis-ge @lindnerby @rakesh-garimella @skhalash @a-thaler @chrkl
-/grafana @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella @skhalash
-/jaeger-operator @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella @skhalash
+/grafana @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella @skhalash @hisarbalik
+/jaeger-operator @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella @skhalash @hisarbalik
 /k8s-tools @kyma-project/prow
 /kaniko-executer @pprecel @cortey @dbadura @m00g3n @moelsayed
-/kiali @skhalash @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella
-/kiwigrid-sidecar @chrkl @dennis-ge @lindnerby @rakesh-garimella @skhalash @a-thaler
-/loki @skhalash @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella
+/kiali @skhalash @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella @hisarbalik
+/kiwigrid-sidecar @chrkl @dennis-ge @lindnerby @rakesh-garimella @skhalash @a-thaler @hisarbalik
+/loki @skhalash @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella @hisarbalik
 /minio @cortey @dbadura @m00g3n @moelsayed @pprecel
-/oauth2-proxy @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella @skhalash
-/prometheus-node-exporter @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella @skhalash
+/oauth2-proxy @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella @skhalash @hisarbalik
+/prometheus-node-exporter @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella @skhalash @hisarbalik
+/kube-state-metrics @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella @skhalash @hisarbalik
 
 # All .md files
-*.md @majakurcius @klaudiagrz @NHingerl @mmitoraj @grego952
+*.md @majakurcius @NHingerl @mmitoraj @grego952
