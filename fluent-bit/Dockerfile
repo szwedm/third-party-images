@@ -1,4 +1,6 @@
 ARG FLB_VERSION
+ARG GOLANG_VERSION=1.19.2
+
 FROM fluent/fluent-bit:${FLB_VERSION} as fluentbit
 
 # build sequential_http plugin
@@ -62,7 +64,7 @@ RUN cmake -DFLB_SOURCE=/tmp/fluent-bit \
 RUN make -j $(getconf _NPROCESSORS_ONLN)
 
 # build loki plugin
-FROM golang:1.19 as loki-builder
+FROM golang:${GOLANG_VERSION} as loki-builder
 ARG LOKI_VERSION
 
 # download sources

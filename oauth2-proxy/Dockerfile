@@ -1,6 +1,7 @@
-ARG RUNTIME_IMAGE=alpine:3.16.2
+ARG ALPINE_VERSION=3.16.2
+ARG GOLANG_VERSION=1.19.2
 
-FROM golang:1.19-buster as builder
+FROM golang:${GOLANG_VERSION}-buster as builder
 
 ARG OAUTH2_PROXY_VERSION
 
@@ -12,7 +13,7 @@ RUN go mod download
 
 RUN GOARCH=amd64 VERSION=${OAUTH2_PROXY_VERSION} make build && touch jwt_signing_key.pem
  
-FROM ${RUNTIME_IMAGE}
+FROM alpine:${ALPINE_VERSION}
 
 RUN apk --no-cache upgrade
 

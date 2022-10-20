@@ -1,4 +1,7 @@
-FROM golang:1.19 as build
+ARG ALPINE_VERSION=3.16.2
+ARG GOLANG_VERSION=1.19.2
+
+FROM golang:${GOLANG_VERSION} as build
 
 ARG LOKI_VERSION
 
@@ -12,7 +15,7 @@ RUN go mod vendor
 
 RUN make NETGO_CHECK='' clean && make BUILD_IN_CONTAINER=false NETGO_CHECK='' loki
 
-FROM alpine:3.16
+FROM alpine:${ALPINE_VERSION}
 
 RUN apk add --no-cache ca-certificates libcap
 

@@ -1,4 +1,6 @@
-FROM golang:1.19 as builder
+ARG GOLANG_VERSION=1.19.2
+
+FROM golang:${GOLANG_VERSION} as builder
 
 ARG KSM_VERSION
 

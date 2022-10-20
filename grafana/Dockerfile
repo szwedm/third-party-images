@@ -1,12 +1,16 @@
+ARG ALPINE_VERSION=3.16
+ARG GOLANG_VERSION=1.19.2
+ARG NODE_VERSION=14.20
+
 # Fetch the sources
-FROM alpine:3.16 as fetcher
+FROM alpine:${ALPINE_VERSION} as fetcher
 ARG GRAFANA_VERSION
 WORKDIR /build
 ADD https://github.com/grafana/grafana/archive/refs/tags/v${GRAFANA_VERSION}.tar.gz /grafana.tar.bz2
 RUN tar -xf /grafana.tar.bz2 -C /build --strip-components 1
 
 # Build UI components
-FROM node:14.20-alpine3.16 as js-builder
+FROM node:${NODE_VERSION}-alpine${ALPINE_VERSION} as js-builder
 
 WORKDIR /usr/src/app/
 
@@ -36,7 +40,7 @@ ENV NODE_ENV production
 RUN yarn build
 
 # Build go components
-FROM golang:1.19-alpine3.16 as go-builder
+FROM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} as go-builder
 
 RUN apk add --no-cache gcc g++
 
@@ -54,7 +58,7 @@ RUN go run build.go build
 
 
 # Final stage
-FROM alpine:3.16 as grafana
+FROM alpine:${ALPINE_VERSION} as grafana
 
 ARG GF_UID="472"
 ARG GF_GID="0"
@@ -105,7 +109,7 @@ COPY --from=fetcher /build/packaging/docker/run.sh /run.sh
 USER grafana
 ENTRYPOINT [ "/run.sh" ]
 
-FROM golang:1.19-alpine3.16  as gw-builder
+FROM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION}  as gw-builder
 
 RUN apk add --no-cache gcc g++
 

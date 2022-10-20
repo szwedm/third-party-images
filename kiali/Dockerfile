@@ -1,8 +1,9 @@
 ARG KIALI_VERSION
+ARG ALPINE_VERSION=3.16.2
 
 FROM quay.io/kiali/kiali:v${KIALI_VERSION} as builder
 
-FROM alpine:3.16.2
+FROM alpine:${ALPINE_VERSION}
 
 ENV KIALI_HOME=/opt/kiali \
     PATH=$KIALI_HOME:$PATH

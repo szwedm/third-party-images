@@ -1,4 +1,6 @@
-FROM alpine:3.16 as builder
+ARG ALPINE_VERSION=3.16.2
+
+FROM alpine:${ALPINE_VERSION} as builder
 
 ARG NODE_EXPORTER_VERSION
 
