@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Builds the static Go image (golang:1.19.0-alpine3.16) to execute in a Kubernetes job
-FROM eu.gcr.io/kyma-project/external/golang@sha256:78767a599f5758e3fd60fd065de9dc40aec1ad3b86ded2bddc92640a465cb515 as builder
+# image builder base on golang:1.19.2-alpine3.16
+FROM eu.gcr.io/kyma-project/external/golang@sha256:45d14bdb069fd5e1fee50160a3e15752038f0fabf339a5ed7f342b84701ed3d6 as builder
 
 ARG KANIKO_VERSION
 ARG GOARCH=amd64
