@@ -13,7 +13,6 @@
 /cloudsql-proxy @strekm @werdes72 @dariusztutaj @cnvergence @barchw @videlov @triffer
 /common @kyma-project/prow
 /docker-registry @cortey @dbadura @m00g3n @moelsayed @pprecel
-/etcd @pk85 @ralikio @szwedm @tillknuesting @wozniakjan @piotrmiskiewicz
 /fluent-bit @dennis-ge @lindnerby @rakesh-garimella @skhalash @a-thaler @chrkl
 /grafana @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella @skhalash @hisarbalik
 /jaeger-operator @a-thaler @chrkl @dennis-ge @lindnerby @rakesh-garimella @skhalash @hisarbalik
